@@ -1,22 +1,19 @@
-// components/Header.js
-import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  InputBase,
-  Button,
-  alpha,
-  styled,
-} from "@mui/material";
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import Button from "@mui/material/Button";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.25),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.35),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -50,31 +47,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Header() {
+export default function Header({ handleDrawerToggle }) {
   return (
-    <AppBar position="static" sx={{ height: "auto" }}>
-      <Toolbar>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, display: "block" }}
-        >
-          MovieApp
-        </Typography>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search for a Movie..."
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-        <Button color="inherit">LOGIN</Button>
-      </Toolbar>
-    </AppBar>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            MovieApp
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search for a Movie..."
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          <Button color="inherit">LOGIN</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
-
-export default Header;
