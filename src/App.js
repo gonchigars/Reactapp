@@ -1,10 +1,10 @@
-import SearchAppBar from "./components/Header";
 import ResponsiveDrawer from "./components/Sidebar";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div>
-      <SearchAppBar />
+      <Header />
       <ResponsiveDrawer />
     </div>
   );
