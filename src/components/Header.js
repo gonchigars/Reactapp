@@ -1,3 +1,4 @@
+// components/Header.js
 import React from "react";
 import {
   AppBar,
@@ -5,12 +6,10 @@ import {
   Typography,
   InputBase,
   Button,
-  IconButton,
   alpha,
   styled,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,27 +50,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Header({ handleDrawerToggle }) {
+function Header() {
   return (
-    <AppBar
-      position="fixed"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    >
+    <AppBar position="static" sx={{ height: "auto" }}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
-          <MenuIcon />
-        </IconButton>
         <Typography
           variant="h6"
           noWrap
           component="div"
-          sx={{ display: { xs: "none", sm: "block" } }}
+          sx={{ flexGrow: 1, display: "block" }}
         >
           MovieApp
         </Typography>

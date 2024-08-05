@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Typography,
   Divider,
-  useTheme,
-  useMediaQuery,
+  Box,
 } from "@mui/material";
 import {
   MovieFilter,
@@ -35,18 +33,24 @@ const genres = [
   { name: "Comedy", icon: <TheaterComedy /> },
 ];
 
-function Sidebar({ mobileOpen, handleDrawerToggle }) {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
-
-  const drawer = (
-    <div>
+function Sidebar() {
+  return (
+    <Box
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          boxSizing: "border-box",
+        },
+      }}
+    >
       <Typography variant="h6" sx={{ my: 2, textAlign: "center" }}>
         Categories
       </Typography>
       <List>
         {categories.map((category) => (
-          <ListItem button key={category.name}>
+          <ListItem key={category.name}>
             <ListItemIcon>{category.icon}</ListItemIcon>
             <ListItemText primary={category.name} />
           </ListItem>
@@ -58,30 +62,13 @@ function Sidebar({ mobileOpen, handleDrawerToggle }) {
       </Typography>
       <List>
         {genres.map((genre) => (
-          <ListItem button key={genre.name}>
+          <ListItem key={genre.name}>
             <ListItemIcon>{genre.icon}</ListItemIcon>
             <ListItemText primary={genre.name} />
           </ListItem>
         ))}
       </List>
-    </div>
-  );
-
-  return (
-    <Drawer
-      variant={isDesktop ? "permanent" : "temporary"}
-      open={isDesktop ? true : mobileOpen}
-      onClose={handleDrawerToggle}
-      ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
-      }}
-      sx={{
-        display: { xs: "block", sm: "block" },
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
-      }}
-    >
-      {drawer}
-    </Drawer>
+    </Box>
   );
 }
 
