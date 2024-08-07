@@ -1,11 +1,17 @@
 import React from 'react';
-import { Drawer, List, ListItem, Button} from '@mui/material';
+import { Drawer, List, ListItem, Button,mobileOpen,handleDrawerToggle} from '@mui/material';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { blue } from '@mui/material/colors';
 
-const SidebarWithButton = () => {
+const SidebarWithButton = ({mobileOpen,handleDrawerToggle}) => {
   return (
-    <Drawer variant="permanent" sx={{  '& .MuiDrawer-paper': {
+    <Drawer variant="temporary" 
+    open={mobileOpen}
+    onClose={handleDrawerToggle}
+    ModalProps={{
+      keepMounted: true, // Better open performance on mobile.
+    }}
+    sx={{  '& .MuiDrawer-paper': {
         width: 220,
         backgroundColor: 'black',color:'white',marginTop:8}}}>
       <List>

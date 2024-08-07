@@ -5,9 +5,12 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import { IconButton } from '@mui/material';
 
 // const SearchAppBar = styled(AppBar)(({ theme }) => ({
 //     backgroundColor: '#123456', // Change color here
@@ -55,20 +58,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ handleDrawerToggle }) {
+
   return (
     <Box sx={{ flexGrow: 1,width:'100%'}}>
       <AppBar position="fixed" sx={{backgroundColor:'red',height:55}}>
         <Toolbar>
-          {/* <IconButton
+           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            onClick={handleDrawerToggle}
+
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton> */}
+          </IconButton> 
           <Typography
             variant="h6"
             noWrap
