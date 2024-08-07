@@ -1,42 +1,50 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./MovieGrid.css";
+import { Grid, CircularProgress, Typography } from "@mui/material";
+import MovieCard from "./MovieCard";
+import { getPopularMovies } from "../services/tmdbApi";
 
-const API_KEY = "49a5508b99e54cbf67438655e1565e32"; // Replace with your actual TMDB API key
-const API_BASE_URL = "https://api.themoviedb.org/3";
-
-const MovieGrid = () => {
+function MovieGrid() {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
-        );
-        setMovies(response.data.results);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
+        const data = await getPopularMovies();
+        setMovies(data.results);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
       }
     };
 
     fetchMovies();
   }, []);
 
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (error) {
+    return <Typography color="error">Error: {error}</Typography>;
+  }
+
   return (
-    <div className="movie-grid">
+    <Grid container spacing={3} justifyContent="center" sx={{width:'100%',ml:20}}>
       {movies.map((movie) => (
-        <div key={movie.id} className="movie-card">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
+        <Grid item key={movie.id} xs={12} sm={8} md={6} lg={3}>
+          <MovieCard
+            title={movie.title}
+            releaseDate={movie.release_date}
+            posterPath={movie.poster_path}
+            rating={movie.vote_average} // Assuming the rating is in `vote_average`
           />
-          <h3>{movie.title}</h3>
-          <p>{movie.release_date}</p>
-        </div>
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
-};
+}
 
 export default MovieGrid;
