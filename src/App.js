@@ -1,18 +1,19 @@
-import React from "react";
-import ResponsiveDrawer from "./components/Sidebar";
-import Header from "./components/Header";
-import MovieGrid from "./components/MovieGrid";
+import './App.css';
+import React from 'react';
+import CombinedComponent from './components/Sidebar';
+import MovieGrid from './components/MovieGrid';
+import RatingMeter from './components/RatingMeter';
 
 function App() {
   return (
-    <div>
-      <Header />
-      <ResponsiveDrawer />
-      <main style={{ marginLeft: "240px", marginTop: "64px" }}>
-        <MovieGrid />
-      </main>
+    <div className="App">
+            <CombinedComponent/>
+            <MovieGrid/>
+            <RatingMeter/>
+       
     </div>
   );
 }
 
 export default App;
+
