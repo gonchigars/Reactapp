@@ -1,16 +1,13 @@
-import React from "react";
-import ResponsiveDrawer from "./components/Sidebar";
-import Header from "./components/Header";
-import MovieGrid from "./components/MovieGrid";
-
+import './App.css';
+import PrimarySearchAppBar from './COMPONENTS/appbar';
+import PersistentDrawerLeft from './COMPONENTS/SIDEBAR';
+import MovieGrid from "./COMPONENTS/MovieGrid";
 function App() {
   return (
-    <div>
-      <Header />
-      <ResponsiveDrawer />
-      <main style={{ marginLeft: "240px", marginTop: "64px" }}>
-        <MovieGrid />
-      </main>
+    <div className="App">
+      <PrimarySearchAppBar/>
+     <PersistentDrawerLeft/>
+     <MovieGrid/>
     </div>
   );
 }
