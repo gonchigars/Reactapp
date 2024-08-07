@@ -3,7 +3,6 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Toolbar,
@@ -19,13 +18,11 @@ function ResponsiveDrawer({ mobileOpen, handleDrawerToggle }) {
       <Toolbar /> {/* This empty Toolbar acts as a spacer */}
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
