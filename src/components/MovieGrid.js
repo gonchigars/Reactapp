@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./MovieGrid.css";
-
-const API_KEY = "49a5508b99e54cbf67438655e1565e32"; // Replace with your actual TMDB API key
+import HalfRating from '@mui/material/Rating';
+const API_KEY = "f9aaf7bfeb87e03e6df3c52ab890a486"; // Replace with your actual TMDB API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
-const MovieGrid = () => {
+const Moviegrid = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -33,10 +33,11 @@ const MovieGrid = () => {
           />
           <h3>{movie.title}</h3>
           <p>{movie.release_date}</p>
+          <HalfRating rating={movie.vote_average / 2} /> {/* Pass the rating to HalfRating */}
         </div>
       ))}
     </div>
   );
 };
 
-export default MovieGrid;
+export default Moviegrid;

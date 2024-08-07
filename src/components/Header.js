@@ -3,8 +3,8 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
+import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 
@@ -18,6 +18,7 @@ const Search = styled("div")(({ theme }) => ({
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
+   // Added border color to search
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "auto",
@@ -50,15 +51,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header({ handleDrawerToggle }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: 'red', border: '2px solid black' }} >
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MovieApp
+          <Typography sx={{ ml: 80 }} fontFamily={'cursive'} fontStyle={'oblique'} variant="h4" color={'cyan'}>
+            ManaMovies
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Search>
