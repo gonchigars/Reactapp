@@ -1,17 +1,50 @@
-import React from "react";
-import ResponsiveDrawer from "./components/Sidebar";
-import Header from "./components/Header";
-import MovieGrid from "./components/MovieGrid";
+import React, { useState } from "react";
+import {
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+  Box,
+  Toolbar,
+} from "@mui/material";
+import SearchAppBar from "./components/Header.js";
+import SidebarWithButton from "./components/Sidebar.js";
+import MovieGrid from "./components/MovieGrid.js";
+
+const theme = createTheme({
+  palette: {
+    background:{
+      default:'black',
+    },
+    primary: {
+      main: "#2196f3",
+    },
+  },
+});
 
 function App() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
-    <div>
-      <Header />
-      <ResponsiveDrawer />
-      <main style={{ marginLeft: "240px", marginTop: "64px" }}>
-        <MovieGrid />
-      </main>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ display: "flex" ,flexDirection:'column',width:'100%'}}>
+        <SearchAppBar handleDrawerToggle={handleDrawerToggle} />
+        <Box sx={{display:"flex",flexGrow:1}}>
+        <SidebarWithButton
+          mobileOpen={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+        />
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar /> {/* This empty Toolbar acts as a spacer */}
+          <MovieGrid />
+        </Box>
+      </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
 
