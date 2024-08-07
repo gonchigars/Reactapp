@@ -1,4 +1,4 @@
-import * as React from "react";
+ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -50,7 +50,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Header({ handleDrawerToggle }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed"
+      sx={{ zIndex: theam => theam.zIndex.drawer +1,backgroundColor: 'blue' }}>
         <Toolbar>
           <Typography
             variant="h6"
