@@ -1,34 +1,85 @@
-/* MovieGrid.css */
+/* Container for the movie grid */
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #CCFFFF;
+  border: #bc3d3d;
 }
 
+/* Style for each movie card */
 .movie-card {
-  background-color: #f0f0f0;
+  background: #fff;
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Initial shadow */
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 10px solid #ddd; /* Optional: Light border for default state */
+}
+
+/* Add shadow border effect */
+.movie-card::before {
+  content: '';
+  position: absolute;
+  top: 4px; /* Distance of the shadow border from the card */
+  left: 4px; /* Distance of the shadow border from the card */
+  right: 4px; /* Distance of the shadow border from the card */
+  bottom: 4px; /* Distance of the shadow border from the card */
+  border-radius: 8px;
+  border: 5px solid rgba(0, 0, 0, 0.2); /* Shadow border color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  z-index: -1; /* Place behind the card content */
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow effect */
+}
+
+.movie-card:hover::before {
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
 }
 
 .movie-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-10px); /* Move the card up slightly */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
 }
 
 .movie-card img {
   width: 100%;
   height: auto;
+  display: flex;
+  top:10;
+  border:#060707;
 }
 
 .movie-card h3 {
-  margin: 10px;
-  font-size: 1.2em;
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  color: #68bcc5fb;
 }
 
 .movie-card p {
-  margin: 10px;
+  margin: 0;
   color: #666;
+}
+
+/* Rating styles */
+.movie-rating {
+  font-size: 0.875rem;
+  font-weight: bold;
+  padding: 10px;
+  color: #fff;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+
+.high-rating {
+  background-color: #4caf50; /* Green for high rating */
+}
+
+.medium-rating {
+  background-color: #ff9800; /* Orange for medium rating */
+}
+
+.low-rating {
+  background-color: #f44336; /* Red for low rating */
 }
