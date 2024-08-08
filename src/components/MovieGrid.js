@@ -8,9 +8,6 @@ const API_BASE_URL = "https://api.themoviedb.org/3";
 const MovieGrid = () => {
   const [movies, setMovies] = useState([]);
 
-  alksjdflk;
-  asfdj;
-
   useEffect(() => {
     const fetchMovies = async () => {
       try {
