@@ -1,0 +1,230 @@
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\App.js  
+import React from "react";
+import ResponsiveDrawer from "./components/Sidebar";
+import Header from "./components/Header";
+import MovieGrid from "./components/MovieGrid";
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <ResponsiveDrawer />
+      <main style={{ marginLeft: "240px", marginTop: "64px" }}>
+        <MovieGrid />
+      </main>
+    </div>
+  );
+}
+
+export default App;
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\App.test.js  
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\index.js  
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\reportWebVitals.js  
+const reportWebVitals = (onPerfEntry) => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
+
+export default reportWebVitals;
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\setupTests.js  
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\components\Header.js  
+import * as React from "react";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
+import Button from "@mui/material/Button";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.25),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.35),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
+
+export default function Header({ handleDrawerToggle }) {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            MovieApp
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search for a Movie..."
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          <Button color="inherit">LOGIN</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+}
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\components\MovieGrid.js  
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./MovieGrid.css";
+
+const API_KEY = "49a5508b99e54cbf67438655e1565e32"; // Replace with your actual TMDB API key
+const API_BASE_URL = "https://api.themoviedb.org/3";
+
+const MovieGrid = () => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+        );
+        setMovies(response.data.results);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  return (
+    <div className="movie-grid">
+      {movies.map((movie) => (
+        <div key={movie.id} className="movie-card">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+          />
+          <h3>{movie.title}</h3>
+          <p>{movie.release_date}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default MovieGrid;
+// Content from C:\Users\gonch\Desktop\Batch3\React\7-Day-Challenge\movie-app\src\components\Sidebar.js  
+import React from "react";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
+const drawerWidth = 240;
+
+function ResponsiveDrawer({ mobileOpen, handleDrawerToggle }) {
+  const drawer = (
+    <div>
+      <Toolbar /> {/* This empty Toolbar acts as a spacer */}
+      <List>
+        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  return (
+    <Drawer
+      variant="permanent"
+      sx={{
+        display: { xs: "none", sm: "block" },
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+      }}
+      open
+    >
+      {drawer}
+    </Drawer>
+  );
+}
+
+export default ResponsiveDrawer;
