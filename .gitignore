@@ -24,5 +24,6 @@ yarn-error.log*
 
 combine.py
 combined_files.txt
+combined_js_files.txt
 
 

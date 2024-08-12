@@ -1,4 +1,7 @@
-import * as React from "react";
+// src/components/Header.js
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -6,20 +9,19 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import Button from "@mui/material/Button";
+import { searchMovies } from "../redux/movieActions";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.25),
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.35),
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(1),
     width: "auto",
   },
 }));
@@ -41,36 +43,53 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
     },
   },
 }));
 
-export default function Header({ handleDrawerToggle }) {
+export default function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      dispatch(searchMovies(searchQuery));
+      navigate("/search");
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             MovieApp
           </Typography>
-          <Box sx={{ flexGrow: 1 }} />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search for a Movie..."
-              inputProps={{ "aria-label": "search" }}
-            />
+            <form onSubmit={handleSearch}>
+              <StyledInputBase
+                placeholder="Search..."
+                inputProps={{ "aria-label": "search" }}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
           </Search>
-          <Button color="inherit">LOGIN</Button>
         </Toolbar>
       </AppBar>
     </Box>

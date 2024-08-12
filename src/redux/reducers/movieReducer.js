@@ -1,6 +1,10 @@
-// reducers/movieReducer.js
+// src/redux/reducers/movieReducer.js
 const initialState = {
-  movies: [],
+  popular: [],
+  action: [],
+  adventure: [],
+  comedy: [],
+  searchResults: [],
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -8,7 +12,12 @@ const movieReducer = (state = initialState, action) => {
     case "SET_MOVIES":
       return {
         ...state,
-        movies: action.payload,
+        [action.payload.category]: action.payload.movies,
+      };
+    case "SET_SEARCH_RESULTS":
+      return {
+        ...state,
+        searchResults: action.payload,
       };
     default:
       return state;

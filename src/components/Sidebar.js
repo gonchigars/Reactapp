@@ -1,4 +1,6 @@
+// src/components/Sidebar.js
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Drawer,
   List,
@@ -8,23 +10,32 @@ import {
   ListItemText,
   Toolbar,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import MovieIcon from "@mui/icons-material/Movie";
+import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
+import TheatersIcon from "@mui/icons-material/Theaters";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer({ mobileOpen, handleDrawerToggle }) {
+function ResponsiveDrawer() {
+  const navigate = useNavigate();
+
+  const categories = [
+    { name: "Popular", icon: <WhatshotIcon />, path: "/" },
+    { name: "Action", icon: <MovieIcon />, path: "/action" },
+    { name: "Adventure", icon: <LocalMoviesIcon />, path: "/adventure" },
+    { name: "Comedy", icon: <TheatersIcon />, path: "/comedy" },
+  ];
+
   const drawer = (
     <div>
-      <Toolbar /> {/* This empty Toolbar acts as a spacer */}
+      <Toolbar />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+        {categories.map((category) => (
+          <ListItem key={category.name} disablePadding>
+            <ListItemButton onClick={() => navigate(category.path)}>
+              <ListItemIcon>{category.icon}</ListItemIcon>
+              <ListItemText primary={category.name} />
             </ListItemButton>
           </ListItem>
         ))}
