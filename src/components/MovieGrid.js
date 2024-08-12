@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./MovieGrid.css";
+import axios from 'axios';
+import './MovieGrid.css';
 
-const API_KEY = "49a5508b99e54cbf67438655e1565e32"; // Replace with your actual TMDB API key
+const API_KEY = "9fe79b52ede4aea7fd21916437ada5c8"; // Replace with your actual TMDB API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
-const MovieGrid = () => {
+const MovieGrid = () => {   
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,14 @@ const MovieGrid = () => {
     fetchMovies();
   }, []);
 
+  const getRatingColor = (rating) => {
+    if (rating >= 70) return 'green';
+    if (rating >= 40) return 'orange';
+    return 'red';
+  };
+
+
+
   return (
     <div className="movie-grid">
       {movies.map((movie) => (
@@ -31,12 +39,47 @@ const MovieGrid = () => {
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
           />
+
+          
+          <div className="rating-container">
+              <svg className="rating-circle" viewBox="0 0 36 36">
+                 <path
+                  className="circle-bg"
+                  d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                  style={{ strokeWidth: 3}} 
+                />
+                <path
+                  className="circle"
+                  strokeDasharray={`${Math.round(movie.vote_average * 10)}, 100`}
+                  d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                  style={{ stroke: getRatingColor(Math.round(movie.vote_average * 10)) , strokeWidth:3 }} 
+                />
+              <text 
+                 x="18" 
+                 y="20.35" 
+                className="percentage"
+                style={{ fill: getRatingColor(Math.round(movie.vote_average * 10)) }}
+               >
+            {Math.round(movie.vote_average * 10)}%
+            </text>
+         </svg>
+        </div>
+
+       
           <h3>{movie.title}</h3>
           <p>{movie.release_date}</p>
+          
+
         </div>
       ))}
     </div>
   );
 };
 
+
 export default MovieGrid;
+
