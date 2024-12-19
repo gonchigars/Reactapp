@@ -1,0 +1,31 @@
+/* Container for the star rating */
+.rating-container {
+    display: flex;
+    align-items: center;
+    font-size: 2rem; /* Adjusts size of stars */
+    color: #d3d3d3; /* Light gray color for unfilled stars */
+}
+
+/* Styling for each star */
+.star {
+    cursor: pointer;
+    color: #d3d3d3; /* Default color for unfilled stars */
+    transition: color 0.3s, transform 0.3s; /* Smooth transitions for color and scaling */
+}
+
+/* Color for filled stars */
+.star.filled {
+    color: #ffd700; /* Gold color for filled stars */
+}
+
+/* Hover effect to provide visual feedback */
+.star:hover,
+.star:hover ~ .star {
+    color: #ffd700; /* Color of stars on hover */
+    transform: scale(1.2); /* Slightly enlarge stars on hover */
+}
+
+/* Animation effect for click */
+.star:active {
+    transform: scale(1.1); /* Slightly shrink stars on click */
+}
