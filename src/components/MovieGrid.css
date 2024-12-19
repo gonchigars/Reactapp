@@ -1,19 +1,23 @@
 /* MovieGrid.css */
+
 .movie-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  display:grid;
+  grid-template-columns: repeat(5, minmax(200px, 2fr));
+  gap: 30px;
+  padding: 2px;
 }
-
 .movie-card {
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  display: grid;
+  border-radius: 10px;
+  overflow:hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
   transition: transform 0.3s ease-in-out;
-}
+  right: 180px;
+  top: 20px;
+  
 
+}
 .movie-card:hover {
   transform: scale(1.05);
 }
@@ -26,9 +30,45 @@
 .movie-card h3 {
   margin: 10px;
   font-size: 1.2em;
+  color:darkcyan;
 }
 
 .movie-card p {
   margin: 10px;
   color: #666;
 }
+
+.movie-card {
+  position:relative;
+  padding: 10px;
+  background-color:#fdfefe;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.movie-card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.movie-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.rating-circle {
+  width: 45px;
+  height: 100px;
+  position: absolute;
+  top:250px;
+  right: 10px;
+}
+

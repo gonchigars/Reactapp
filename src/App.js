@@ -1,15 +1,13 @@
 import React from "react";
-import ResponsiveDrawer from "./components/Sidebar";
-import Header from "./components/Header";
-import MovieGrid from "./components/MovieGrid";
-
+import ButtonAppBar from "./component/Appbar";
+import MovieiGrid from './component/MovieiGrid';
+import "./App.css";
 function App() {
   return (
-    <div>
-      <Header />
-      <ResponsiveDrawer />
+    <div className="App">
+      <ButtonAppBar/>
       <main style={{ marginLeft: "240px", marginTop: "64px" }}>
-        <MovieGrid />
+      <MovieiGrid/>
       </main>
     </div>
   );
