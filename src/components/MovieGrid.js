@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Rating from "@mui/material/Rating"; // MUI Rating component
 import "./MovieGrid.css";
 
-const API_KEY = "49a5508b99e54cbf67438655e1565e32"; // Replace with your actual TMDB API key
+const API_KEY = "7c699012b4e435d93bdce1dcd339160d"; // Replace with your actual TMDB API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
 const MovieGrid = () => {
@@ -33,6 +34,14 @@ const MovieGrid = () => {
           />
           <h3>{movie.title}</h3>
           <p>{movie.release_date}</p>
+          {/* Display TMDb's average rating */}
+          <Rating
+            name={`rating-${movie.id}`}
+            value={movie.vote_average / 2} // TMDb rating is out of 10, MUI Rating is out of 5
+            precision={0.1} // Allows more granular ratings
+            readOnly // Make rating component read-only
+          />
+          <p>{movie.vote_average.toFixed(1)} / 10</p> {/* Show the rating score */}
         </div>
       ))}
     </div>
