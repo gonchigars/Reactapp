@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./MovieGrid.css";
+import Rating from "@mui/material/Rating";
+import "./MovieGrid.css";//this cammand connect to the css file
+import { Box } from "@mui/material";
+
 
 const API_KEY = "49a5508b99e54cbf67438655e1565e32"; // Replace with your actual TMDB API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
@@ -24,7 +27,7 @@ const MovieGrid = () => {
   }, []);
 
   return (
-    <div className="movie-grid">
+    <div className="movie-grid" >
       {movies.map((movie) => (
         <div key={movie.id} className="movie-card">
           <img
@@ -33,6 +36,24 @@ const MovieGrid = () => {
           />
           <h3>{movie.title}</h3>
           <p>{movie.release_date}</p>
+          <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mt: 1,
+
+          }}
+          >
+            <Rating
+              name={`movie-rating-${movie.id}`}
+              value={movie.vote_average / 2} // TMDB ratings are out of 10, so divide by 2 for 5-star rating
+              precision={0.5}
+              readOnly
+            />
+            <p>({movie.vote_count} votes)</p>
+          </Box>
+
         </div>
       ))}
     </div>
